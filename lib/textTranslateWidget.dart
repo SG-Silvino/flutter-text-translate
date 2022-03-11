@@ -89,6 +89,12 @@ class _TextTranslateState extends State<TextTranslate> {
             textHeightBehavior: widget.textHeightBehavior));
   }
 
+  List? localeCode = [];
+
+  Future getLocales() async {
+    
+  }
+
   @override
   Widget build(BuildContext context) {
     return text(

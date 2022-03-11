@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:text_translate/supabase.dart';
 import 'package:text_translate/textTranslateWidget.dart';
 
-void main() {
+void main() async {
   runApp(MyApp());
 }
 
@@ -26,6 +27,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  base() async {
+    var response = await client.from('cvLocales').select().execute();
+
+    return response.data;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +47,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            FutureBuilder(
+              future: base(),
+              builder: (context, snapshot) {
+              return Text("${snapshot.data}");
+            }),
             TextTranslate('How are you?', from: 'en', to: 'es'),
             TextTranslate('Traduzindo para inglês por defeito'),
             TextTranslate(
